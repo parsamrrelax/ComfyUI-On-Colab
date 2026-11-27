@@ -32,7 +32,7 @@
         }
       ],
       "widgets_values": [
-        "MiniMax-H3-Image-AD-Q4_K.gguf"
+        "MiniMax-H3-Image-AD-Q3_K.gguf"
       ],
       "title": "Unet Loader (GGUF)"
     },
@@ -183,7 +183,7 @@
       ],
       "flags": {},
       "order": 5,
-      "mode": 0,
+      "mode": 4,
       "inputs": [],
       "outputs": [
         {
@@ -339,7 +339,7 @@
       ],
       "flags": {},
       "order": 9,
-      "mode": 0,
+      "mode": 4,
       "inputs": [
         {
           "name": "clip",
@@ -1651,7 +1651,7 @@
       "inputs": [],
       "outputs": [],
       "widgets_values": [
-        "## MiniMax H3 Image - 12 GB VRAM / Colab T4 (GGUF) version\n\nOptimized for **12 GB VRAM** and **Colab Free Tier T4 (16 GB VRAM / 12 GB System RAM)** using GGUF quantizations (`MiniMax-H3-Image-AD-Q4_K.gguf` + `Qwen3-VL-32B-Instruct-MiniMax-H3-L0-49-UD-Q2_K_XL.gguf` + BF16 `mmproj`) and tiled VAE decoding.\n\n**1. Prompt** - write it **long**, like a real photo: who (age, hair, skin, outfit), where, what is around them, the light and its direction, and the camera, e.g. *\"Shot on the iPhone 16 Pro front camera, visible skin texture and pores, natural phone HDR, no retouching, ordinary Instagram photo, not cinematic, not studio.\"* Short prompts give a glossy doll face. Keep *Enhance prompt* off when using reference pictures or running on 12 GB system RAM.\n\n**2. Size** - pick the ASPECT RATIO. *16 MP* defaults to **off (4 MP)** for fast T4 generation without memory swapping. People: use 3:4 (or 4:3).\n\n| Ratio | 4 MP (T4 Recommended) | 16 MP (12GB+ Desktop) |\n|---|---|---|\n| 1:1 | 2048x2048 | 4096x4096 |\n| 3:4 | 1760x2368 | 3552x4736 |\n| 4:3 | 2368x1760 | 4736x3552 |\n| 2:3 | 1664x2496 | 3360x5024 |\n| 3:2 | 2496x1664 | 5024x3360 |\n| 9:16 | 1536x2720 | 3072x5472 |\n| 16:9 | 2720x1536 | 5472x3072 |\n| 21:9 | 3136x1344 | 6272x2688 |\n\n**3. Reference pictures (Face Reference)** - ten slots, all bypassed. Select Slot 1, press **Ctrl+B** to switch it on, and load your reference face image as `<Picture 1>` in the prompt. Keep the VAE connected to the conditioning node and ensure the BF16 `mmproj` file is present in `models/text_encoders/` so face identity is preserved.\n\n**4. Sampler** - SamplerCustomAdvanced with **SamplerLCM**, BasicScheduler **simple, 6 steps**, denoise 1.0, CFGGuider **cfg 1.0** (no negative prompt). Do not raise the steps: the model is distilled for 6.\n\n**5. Tiled Decode** - uses **VAEDecodeTiled** (`tile_size: 768`, `overlap: 64`) to prevent VRAM spikes on 12 GB / T4 GPUs. Lower `tile_size` to `512` if you ever hit OOM.\n\n**6. LoRAs (MiniMax H3 Image & Video LoRAs)** - 3 LoRA slots are chained between the GGUF loaders and conditioning/samplers. They are bypassed by default (`mode: 4`).\n- Select your LoRA in the dropdown for Slot 1, 2, or 3.\n- Press **Ctrl+B** on the node to un-bypass (activate) it.\n- Adjust `strength_model` (typically 0.6 to 1.0).\n- Standard `.safetensors` MiniMax H3 image & video LoRAs work directly on the GGUF model.\n"
+        "## MiniMax H3 Image - 12 GB VRAM / Colab T4 (GGUF) version\n\nOptimized for **12 GB VRAM** and **Colab Free Tier T4 (16 GB VRAM / 12 GB System RAM)** using GGUF quantizations (`MiniMax-H3-Image-AD-Q3_K.gguf` + `Qwen3-VL-32B-Instruct-MiniMax-H3-L0-49-UD-Q2_K_XL.gguf` + BF16 `mmproj`) and tiled VAE decoding.\n\n**1. Prompt** - write it **long**, like a real photo: who (age, hair, skin, outfit), where, what is around them, the light and its direction, and the camera, e.g. *\"Shot on the iPhone 16 Pro front camera, visible skin texture and pores, natural phone HDR, no retouching, ordinary Instagram photo, not cinematic, not studio.\"* Short prompts give a glossy doll face. Keep *Enhance prompt* off when using reference pictures or running on 12 GB system RAM.\n\n**2. Size** - pick the ASPECT RATIO. *16 MP* defaults to **off (4 MP)** for fast T4 generation without memory swapping. People: use 3:4 (or 4:3).\n\n| Ratio | 4 MP (T4 Recommended) | 16 MP (12GB+ Desktop) |\n|---|---|---|\n| 1:1 | 2048x2048 | 4096x4096 |\n| 3:4 | 1760x2368 | 3552x4736 |\n| 4:3 | 2368x1760 | 4736x3552 |\n| 2:3 | 1664x2496 | 3360x5024 |\n| 3:2 | 2496x1664 | 5024x3360 |\n| 9:16 | 1536x2720 | 3072x5472 |\n| 16:9 | 2720x1536 | 5472x3072 |\n| 21:9 | 3136x1344 | 6272x2688 |\n\n**3. Reference pictures (Face Reference)** - ten slots, all bypassed. Select Slot 1, press **Ctrl+B** to switch it on, and load your reference face image as `<Picture 1>` in the prompt. Keep the VAE connected to the conditioning node and ensure the BF16 `mmproj` file is present in `models/text_encoders/` so face identity is preserved.\n\n**4. Sampler** - SamplerCustomAdvanced with **SamplerLCM**, BasicScheduler **simple, 6 steps**, denoise 1.0, CFGGuider **cfg 1.0** (no negative prompt). Do not raise the steps: the model is distilled for 6.\n\n**5. Tiled Decode** - uses **VAEDecodeTiled** (`tile_size: 768`, `overlap: 64`) to prevent VRAM spikes on 12 GB / T4 GPUs. Lower `tile_size` to `512` if you ever hit OOM.\n\n**6. LoRAs (MiniMax H3 Image & Video LoRAs)** - 3 LoRA slots are chained between the GGUF loaders and conditioning/samplers. They are bypassed by default (`mode: 4`).\n- Select your LoRA in the dropdown for Slot 1, 2, or 3.\n- Press **Ctrl+B** on the node to un-bypass (activate) it.\n- Adjust `strength_model` (typically 0.6 to 1.0).\n- Standard `.safetensors` MiniMax H3 image & video LoRAs work directly on the GGUF model.\n"
       ],
       "title": "How to use (12 GB VRAM / T4 GGUF)"
     },
