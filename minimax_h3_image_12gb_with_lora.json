@@ -1,0 +1,2286 @@
+{
+  "id": "7b8f42c1-9e14-4d32-8a5c-12gb4t4gguf01",
+  "revision": 0,
+  "last_node_id": 63,
+  "last_link_id": 51,
+  "nodes": [
+    {
+      "properties": {
+        "Node name for S&R": "UnetLoaderGGUF"
+      },
+      "id": 1,
+      "type": "UnetLoaderGGUF",
+      "pos": [
+        0,
+        0
+      ],
+      "size": [
+        420,
+        90
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            43
+          ]
+        }
+      ],
+      "widgets_values": [
+        "MiniMax-H3-Image-AD-Q4_K.gguf"
+      ],
+      "title": "Unet Loader (GGUF)"
+    },
+    {
+      "properties": {
+        "Node name for S&R": "H3ClipLoaderAny"
+      },
+      "id": 2,
+      "type": "H3ClipLoaderAny",
+      "pos": [
+        0,
+        140
+      ],
+      "size": [
+        420,
+        120
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            44
+          ]
+        }
+      ],
+      "widgets_values": [
+        "Qwen3-VL-32B-Instruct-MiniMax-H3-L0-49-UD-Q2_K_XL.gguf",
+        "minimax",
+        "Qwen3-VL-32B-Instruct-MiniMax-H3-L0-49-mmproj-BF16.gguf"
+      ],
+      "title": "Load CLIP (GGUF + mmproj)"
+    },
+    {
+      "properties": {
+        "Node name for S&R": "VAELoader"
+      },
+      "id": 3,
+      "type": "VAELoader",
+      "pos": [
+        0,
+        310
+      ],
+      "size": [
+        420,
+        70
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            16,
+            31
+          ]
+        }
+      ],
+      "widgets_values": [
+        "minimax_h3_image_vae_fp16.safetensors"
+      ]
+    },
+    {
+      "properties": {
+        "Node name for S&R": "PrimitiveStringMultiline"
+      },
+      "id": 10,
+      "type": "PrimitiveStringMultiline",
+      "pos": [
+        0,
+        520
+      ],
+      "size": [
+        420,
+        330
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            2,
+            7
+          ]
+        }
+      ],
+      "widgets_values": [
+        "PASTE YOUR PROMPT HERE. With reference pictures, name them as <Picture 1>, <Picture 2>, ..."
+      ],
+      "title": "PROMPT"
+    },
+    {
+      "properties": {
+        "Node name for S&R": "PrimitiveBoolean"
+      },
+      "id": 11,
+      "type": "PrimitiveBoolean",
+      "pos": [
+        0,
+        900
+      ],
+      "size": [
+        420,
+        60
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "BOOLEAN",
+          "type": "BOOLEAN",
+          "links": [
+            9
+          ]
+        }
+      ],
+      "widgets_values": [
+        false
+      ],
+      "title": "Enhance prompt (text-to-image only)"
+    },
+    {
+      "properties": {
+        "Node name for S&R": "CLIPLoader"
+      },
+      "id": 12,
+      "type": "CLIPLoader",
+      "pos": [
+        0,
+        1010
+      ],
+      "size": [
+        420,
+        120
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            3
+          ]
+        }
+      ],
+      "widgets_values": [
+        "qwen3.5_9b_w4a8_gptq.safetensors",
+        "minimax",
+        "default"
+      ],
+      "title": "Load CLIP (prompt upsampler)"
+    },
+    {
+      "properties": {
+        "Node name for S&R": "PrimitiveStringMultiline"
+      },
+      "id": 13,
+      "type": "PrimitiveStringMultiline",
+      "pos": [
+        0,
+        1180
+      ],
+      "size": [
+        420,
+        120
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            4
+          ]
+        }
+      ],
+      "widgets_values": [
+        "Reason in the thinking section first. The visible final content must be exactly one JSON object with exactly two keys: expanded_caption and aspect_ratio. Every ASCII double quotation mark used as caption content inside expanded_caption must be serialized as the JSON escape sequence \\\". Do not output text outside that object."
+      ],
+      "title": "Upsampler system prompt"
+    },
+    {
+      "properties": {
+        "Node name for S&R": "PrimitiveStringMultiline"
+      },
+      "id": 14,
+      "type": "PrimitiveStringMultiline",
+      "pos": [
+        0,
+        1350
+      ],
+      "size": [
+        420,
+        120
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            1
+          ]
+        }
+      ],
+      "widgets_values": [
+        "You are a caption-expansion and canvas-selection model for still-image\ntext-to-image generation. Rewrite input_text into a natural English detailed\ncaption and choose one aspect ratio for the requested final image. After private\nreasoning, serialize the complete caption and aspect ratio together as the one\nrequired two-key JSON object; no visible analysis, markdown, or self-talk. The\ncaption may be long when the requested image is a complex information or design artifact.\n\nRole: act like an expert visual designer and technical illustrator, not a word\nexpander. Preserve every hard fact from the input, then complete the image with\nvisible, inspectable content. The goal is not more words; the goal is that a\nviewer can inspect each important part of the image and find meaningful subjects,\nlabels, relationships, materials, data, and hierarchy.\n\nFirst choose which kind of image this is:\n- A depicted scene or photograph: prioritize subject identity, pose, contact,\nscale, environment, lighting, lens/medium, and physical plausibility.\n- A communication artifact such as poster, character card, product-design board,\nwebpage, UI, chart, dashboard, scientific/medical infographic, technical diagram,\nprinted page, packaging, cover, or multi-panel composite: build a finished\ninformation architecture, not just a scene containing the requested objects.\n\nAspect-ratio decision policy:\nChoose exactly one of these allowed ratios: 1:1, 5:4, 4:3, 3:2, 16:9, 21:9,\n4:5, 3:4, 2:3, or 9:16. Decide in the following order; earlier evidence\noverrides later evidence.\n\n1. Explicit final canvas\n- Preserve an explicit final-output ratio. Map explicit output pixel dimensions\n  by width divided by height to the closest allowed ratio.\n- Do not confuse the final canvas with a source image, reference asset, object,\n  inset, collage cell, or embedded screen.\n\n2. Requested deliverable\n- Use an explicitly requested medium or display surface. Treat each carousel\n  page, card, or slide as its own canvas unless a contact sheet, storyboard,\n  continuous strip, or combined overview is explicitly requested.\n- Prefer square or near-square for individual social posts, icons, avatars,\n  compact logos, or compact product assets; vertical for covers, posters, phone\n  stories, or mobile wallpapers; horizontal for slides, headers, banners, or\n  explicitly wide displays. Do not invent a platform or deliverable.\n\n3. Primary composition\n- The main subject, action, or information structure outweighs optional context.\n  A generic room, park, forest, sky, or cinematic background must not turn a\n  focused subject horizontal.\n- Prefer vertical for dominant upright or full-body subjects, tall structures,\n  stacked information, rising or falling motion, upward reach, or vertical\n  negative space. Prefer horizontal for genuinely side-by-side structure,\n  lateral action, broadly distributed subjects, a requested broad environment,\n  horizontal sequences, or lateral negative space. Prefer square or near-square\n  for compact, centered, radial, symmetrical, or directionally neutral content.\n\n4. Minimal completion and ratio strength\n- If the input is underspecified, form the smallest natural, content-preserving\n  composition needed to choose a ratio. Lock it before adding detailed scenery\n  or styling; do not invent a panorama, broad environment, or multi-panel layout\n  to justify it, and do not revise it because later expansion adds detail.\n- Words such as \"portrait,\" \"cinematic,\" \"video,\" \"UE5,\" \"Weta,\"\n  \"photorealistic,\" \"dramatic,\" and \"wide-angle\" do not determine orientation.\n- Use 5:4 or 4:5 for mild direction, 4:3 or 3:4 for moderate direction, and\n  3:2 or 2:3 for clear photographic direction. Reserve 16:9 and 9:16 for\n  strongly directional or mobile-first compositions, and 21:9 for genuine\n  banners, panoramas, timelines, or explicitly continuous wide layouts. When\n  evidence remains weak, prefer 1:1 or a moderate ratio.\n\nChoose and lock the ratio from the requested canvas, deliverable, and smallest\nnatural primary composition before enriching the caption. Later details added by\nthe caption-expansion rules must not retroactively change the ratio.\n\nUniversal hard rules:\n1. Preserve exact requested text, named entities, counts, formulas, data values,\ncomponent names, style, medium, orientation, and left/right/top/bottom order.\n2. Required content must be visible, not implied. If text or a label is requested,\nplace it on the surface and describe where it sits.\n3. For active bodies, solve scene geometry before pose detail. Preserve any\ndomain-native layout first: a sport court, game grid, path, lane, stair, room,\nor interface should keep its recognizable structure unless the input changes\nit. Do not move the target or redesign the ground merely to obtain a preferred\nbody view. Choose one camera only after the scene layout is fixed, then place\nthe source and target in that camera's image frame using screen-left/screen-\nright, upper/lower image position, and nearer/farther depth. Silently trace the\nsource-to-target vector in this fixed view. Derive the actor's camera-relative\norientation from that vector and state it explicitly as front-facing, back-\nfacing, left-facing profile, right-facing profile, front three-quarter, or rear\nthree-quarter, together with a frame-absolute motion direction such as leftward,\nrightward, toward the camera/foreground, or away from the camera/deeper into the\nscene. Never use only a target-relative phrase such as \"facing square 2\" or\n\"looking toward the door\". The mapping follows the chosen geometry rather than\na fixed default: a target at screen-right implies a right-facing or rightward\nbody; a target at screen-left implies a left-facing or leftward body; a target\nfarther into the scene implies a back-facing or rear-three-quarter body moving\naway; and a target nearer the camera implies a front-facing or front-three-\nquarter body moving toward the viewer. These are coordinate mappings, not\ninstructions to relocate every target. Verify the visible body surfaces before\nwriting: movement away must show the back, back of the head, or rear shoulders\nand must not show a frontal chest or full face; movement toward the camera must\nshow the face and chest; lateral movement must read as the corresponding side\nprofile. If the stated source/target positions and visible body surfaces imply\nopposite directions, revise the body orientation instead of changing the scene\nlayout. Keep gaze, chest, torso lean, leading limb, support foot or hand, and\nmotion consistent with the derived orientation and with one frozen phase. A\nlimb cannot be simultaneously ahead and behind, planted and airborne, or\nassigned to two contacts. For actions on marked ground, use an elevated high-angle oblique or near-\noverhead three-quarter camera, never a low ground-level view. Center the camera on the complete ground map and make it the dominant, fully\ncontained region of the image: show its outer boundary, every cell or segment,\nthe source, target, and full travel path. After deriving the source-to-target\nvector, place the actor's torso outside the map on the ray extending backward\nfrom the source in the direction opposite the target. Do not move the actor to\nan arbitrary side margin if that would change the apparent travel direction.\nOnly the support foot may enter the near edge of the source cell, leaving its\nlabel visible; place the leading foot in the source-target direction near their\ngap. Keep torso, limbs, hair, clothing, and cast shadow outside every later cell\nand label. Widen or elevate the camera framing rather than rotating the actor or\nrelocating the target. This placement must preserve the previously derived front,\nback, left, right, or three-quarter camera-relative orientation. Preserve conventional topology and perspective, keep every label upright and\nlarge enough to read, and show each requested label exactly once in order. If\nthe input does not specify label colors or materials, use one neutral, uniform,\nhigh-contrast marking style for every label; unspecified styling is not permission\nto assign a different color to each item. Keep the actor's hands empty unless the\ninput names a held object. Do not add loose markers, stones, chalk pieces, buckets,\nropes, toys, shadows, limbs, or cropping over any label or grid line.\nPreserve a plausible silhouette and avoid broken foreshortening, hidden critical\njoints, mirrored layouts, alternative camera choices, and blended before-and-\nafter poses. For emotion-driven photo or video frames, keep facial anatomy\nnatural and consistent with the selected viewpoint.\n4. For hands, grips, linked fingers, hugs, carrying, pointing, tools, weapons, or\nbody-object contact, choose the framing that makes the interaction readable. Use\na medium shot or waist-up view when hand/facial detail is central; do not force a\nfull-body view if it makes the required contact or expression tiny. State which\nhand or limb touches what, how the fingers or support points align, and keep\nnonessential limbs simple.\n5. Use world knowledge as visible evidence only: cultural motifs, scientific\nstructures, medical anatomy, interface conventions, manufacturing details,\nprofessional tools, materials, units, labels, measurement marks, clothing, props,\narchitecture, or environment. Do not add lore that cannot be seen.\n6. Respect requested subject count. If the prompt names event types, two\ncharacters, or one primary subject, keep the number of primary figures to that\nminimum unless extra people are requested. Background crowds, spectators, or\nstaff should read as small silhouettes or graphic texture, not extra competing\nmain subjects.\n\nFor communication artifacts, silently make a content map before writing. Divide\nthe canvas in reading order into major slots: header/title, subtitle/tagline,\nhero visual, left panel, right sidebar, card row, icon group, diagram body,\nprocess path, chart area, formula box, exploded view, inset, specification area,\nswatch strip, instruction cards, footer, screen region, or background context.\nEach major slot should normally include at least three of these: position, visible\ntext or label, concrete visual subject, function or relationship, material/data\ntreatment, and hierarchy/style treatment. Do not use vague slot fillers such as\n\"icons,\" \"details,\" \"information,\" \"supporting graphics,\" or \"annotations\"\nwithout saying what they show.\n\nMake the artifact feel complete. If the prompt asks for a card, board, poster,\ninfographic, webpage, or product sheet, add a few plausible supporting elements\nthat belong to that artifact when they help completeness: subtitle, role/profile,\nabout note, quote, ratings, legend, color key, units, variable definitions,\ndimension labels, back/side view, material stack, use-case icons, footer tips,\nQR/logo placeholder, warning, or compact specification table. Keep these as short\nreadable on-image labels or one-line captions, not prose blocks.\n\nCorrespondence and legibility rules:\n- Multi-view outputs such as floor plan plus interior render, blueprint plus\nproduct render, map plus scene, or before/after panels need a shared inventory\nand coordinate frame. Reuse the same walls, openings, furniture/components,\nmaterials, labels, and relative positions in every panel. Name the render camera\norigin or viewing direction from the plan when useful, and do not invent major\nobjects that are absent from the paired view.\n- Dense flowcharts, medical diagrams, route maps, and process infographics should\nbe simplified into a few large numbered nodes, separated lanes, or a clean\nU-shaped loop. Arrows must be thick, directional, non-crossing, and attached to\nnamed start/end nodes. Prefer legible topology and large labels over many small\nleader lines, tiny arrows, or decorative clutter.\n\nContract affordances:\n- Scientific/medical/educational infographic: include named section headers;\nmain diagram with attached component labels; arrows with correct direction and\nstart/end nodes; legends or color keys; short functional captions; key-point\ncards with icon plus meaning; definitions and units; formula box with variable\ndefinitions; and process/system context such as body, lungs, vessels, lab setup,\nmolecule, device, or environment when implied.\n- Charts, graphs, dashboards, and data screens: include chart title when useful,\naxis labels, tick labels or scale endpoints, units, legend entries, colors, data\nmarks, selected states, and values or qualitative endpoints placed consistently\nwith the visual geometry. Even if the chart appears on a photographed stage\nscreen, the screen content still needs readable chart semantics.\n- Product/cultural design board: include title/subtitle/tagline; inspiration or\nuse-case cues; large hero render; motif-specific details; front/back/side or\nscale insets when useful; exploded layers; manufacturable joints, pins, clasps,\nfasteners, seams, ribs, holes, tolerances, or contact points; material stack;\nfinish behavior; dimension labels; palette swatches; specification and craft\nicons.\n- Character card/mascot sheet: include identity/title; name tag; role/profile or\nabout area; full-body readable proportions; attribute rows with icon, label, and\nbrief meaning; props tied to the role; material swatches or callouts; optional\nrating, quote, badge, instruction row, or contextual background so it reads as a\ndesigned card/poster rather than a plain character portrait.\n- UI/web/dashboard/data graphic: include real page/screen sections, navigation,\ncontrols, fields, buttons, cards, selected states, labels, values, icons, and\nintentional empty states only when requested.\n- Public poster/cover/packaging/display graphic: include typography hierarchy,\nheadline/subtitle/supporting copy, image slots, instruction cards, icons, badges,\nborders/rules, QR/barcode/logo placeholders if requested, palette, and intentional\nnegative space. When a poster features sports, products, or people, use one clear\nhero subject per requested category unless the prompt asks for a group.\n\nStyle comes after content. Choose clean isolation for icons/logos/cutouts and\ntechnical assets; layout-rich pages or boards for design communication; believable\nenvironment, lighting, lens, and depth for photographs. Replace abstract mood and\ngeneric adjectives with specific visible cues.\n\nFinal self-check: every input requirement is visible; every major slot has real\ncontent; required text/formulas/values are exact; labels attach to correct\nstructures; arrows and data geometry are coherent; body orientation is explicit relative to the camera and agrees with the preserved scene layout, source, target, depth, gaze, support, and motion; paired panels correspond; subject count has not grown by accident;\nworld knowledge appears as visible evidence; no important surface is blank.\n\nFinal output contract:\nUse the private thinking section to plan the caption and ratio. After thinking,\nthe visible final answer must be exactly one JSON object with exactly these two\nkeys:\n\n{{\"expanded_caption\":\"ONE_DETAILED_ENGLISH_CAPTION\",\"aspect_ratio\":\"ALLOWED_RATIO\"}}\n\nFor example, serialize a caption containing the title \"\u4f60\u597d\" as:\n{{\"expanded_caption\":\"The title reads \\\"\u4f60\u597d\\\".\",\"aspect_ratio\":\"16:9\"}}\n\nReplace ONE_DETAILED_ENGLISH_CAPTION with one fluent English caption paragraph\nthat follows every rule above, and ALLOWED_RATIO with exactly one allowed ratio\nstring. Keep expanded_caption as one valid JSON string. Every ASCII double quotation mark used as caption content inside expanded_caption must be serialized as the JSON escape sequence \\\". Escape all other characters as valid JSON requires. Do not add or omit keys. Do not put thinking or think tags inside\nthe object. Do not output a Markdown fence, alternatives, or any text outside\nthe final JSON object.\n\ninput_text: {input text}\noutput_text:\n"
+      ],
+      "title": "Upsampler task prompt"
+    },
+    {
+      "properties": {
+        "Node name for S&R": "StringReplace"
+      },
+      "id": 15,
+      "type": "StringReplace",
+      "pos": [
+        470,
+        900
+      ],
+      "size": [
+        300,
+        200
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "string",
+          "type": "STRING",
+          "link": 1,
+          "widget": {
+            "name": "string"
+          }
+        },
+        {
+          "name": "find",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "find"
+          }
+        },
+        {
+          "name": "replace",
+          "type": "STRING",
+          "link": 2,
+          "widget": {
+            "name": "replace"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            5
+          ]
+        }
+      ],
+      "widgets_values": [
+        "",
+        "{input text}",
+        ""
+      ]
+    },
+    {
+      "properties": {
+        "Node name for S&R": "TextGenerateV2"
+      },
+      "id": 16,
+      "type": "TextGenerateV2",
+      "pos": [
+        470,
+        1160
+      ],
+      "size": [
+        300,
+        460
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 3
+        },
+        {
+          "name": "system_prompt",
+          "type": "STRING",
+          "link": 4
+        },
+        {
+          "name": "prompt",
+          "type": "STRING",
+          "link": 5,
+          "widget": {
+            "name": "prompt"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "generated_text",
+          "type": "STRING",
+          "links": [
+            6
+          ]
+        },
+        {
+          "name": "thinking",
+          "type": "STRING",
+          "links": []
+        }
+      ],
+      "widgets_values": [
+        "",
+        8192,
+        "on",
+        1,
+        20,
+        0.95,
+        0,
+        1,
+        0,
+        0,
+        true,
+        true,
+        "auto"
+      ]
+    },
+    {
+      "properties": {
+        "Node name for S&R": "JsonExtractString"
+      },
+      "id": 17,
+      "type": "JsonExtractString",
+      "pos": [
+        0,
+        1520
+      ],
+      "size": [
+        420,
+        110
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "json_string",
+          "type": "STRING",
+          "link": 6,
+          "widget": {
+            "name": "json_string"
+          }
+        },
+        {
+          "name": "key",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "key"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            8
+          ]
+        }
+      ],
+      "widgets_values": [
+        "",
+        "expanded_caption"
+      ]
+    },
+    {
+      "properties": {
+        "Node name for S&R": "ComfySwitchNode"
+      },
+      "id": 18,
+      "type": "ComfySwitchNode",
+      "pos": [
+        470,
+        520
+      ],
+      "size": [
+        300,
+        90
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "on_false",
+          "type": "STRING",
+          "link": 7
+        },
+        {
+          "name": "on_true",
+          "type": "STRING",
+          "link": 8
+        },
+        {
+          "name": "switch",
+          "type": "BOOLEAN",
+          "link": 9,
+          "widget": {
+            "name": "switch"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "type": "STRING",
+          "links": [
+            10,
+            27
+          ]
+        }
+      ],
+      "widgets_values": [
+        false
+      ],
+      "title": "Prompt: as written / enhanced"
+    },
+    {
+      "properties": {
+        "Node name for S&R": "PreviewAny"
+      },
+      "id": 19,
+      "type": "PreviewAny",
+      "pos": [
+        470,
+        660
+      ],
+      "size": [
+        300,
+        190
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "source",
+          "type": "*",
+          "link": 10
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": []
+        }
+      ],
+      "widgets_values": [],
+      "title": "Prompt sent to the model"
+    },
+    {
+      "properties": {
+        "Node name for S&R": "PrimitiveBoolean"
+      },
+      "id": 20,
+      "type": "PrimitiveBoolean",
+      "pos": [
+        840,
+        0
+      ],
+      "size": [
+        300,
+        60
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "BOOLEAN",
+          "type": "BOOLEAN",
+          "links": [
+            13
+          ]
+        }
+      ],
+      "widgets_values": [
+        false
+      ],
+      "title": "16 MP (off = 4 MP draft, recommended for T4)"
+    },
+    {
+      "properties": {
+        "Node name for S&R": "PrimitiveFloat"
+      },
+      "id": 21,
+      "type": "PrimitiveFloat",
+      "pos": [
+        840,
+        110
+      ],
+      "size": [
+        300,
+        60
+      ],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "FLOAT",
+          "type": "FLOAT",
+          "links": [
+            11
+          ]
+        }
+      ],
+      "widgets_values": [
+        4.0
+      ],
+      "title": "Draft megapixels"
+    },
+    {
+      "properties": {
+        "Node name for S&R": "PrimitiveFloat"
+      },
+      "id": 22,
+      "type": "PrimitiveFloat",
+      "pos": [
+        840,
+        220
+      ],
+      "size": [
+        300,
+        60
+      ],
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "FLOAT",
+          "type": "FLOAT",
+          "links": [
+            12
+          ]
+        }
+      ],
+      "widgets_values": [
+        16.0
+      ],
+      "title": "Full megapixels (12 GB VRAM: 16, T4: keep 4 MP)"
+    },
+    {
+      "properties": {
+        "Node name for S&R": "ComfySwitchNode"
+      },
+      "id": 23,
+      "type": "ComfySwitchNode",
+      "pos": [
+        840,
+        330
+      ],
+      "size": [
+        300,
+        90
+      ],
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "on_false",
+          "type": "FLOAT",
+          "link": 11
+        },
+        {
+          "name": "on_true",
+          "type": "FLOAT",
+          "link": 12
+        },
+        {
+          "name": "switch",
+          "type": "BOOLEAN",
+          "link": 13,
+          "widget": {
+            "name": "switch"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "type": "FLOAT",
+          "links": [
+            14
+          ]
+        }
+      ],
+      "widgets_values": [
+        false
+      ],
+      "title": "Megapixels: draft / 16 MP"
+    },
+    {
+      "properties": {
+        "Node name for S&R": "ResolutionSelector"
+      },
+      "id": 24,
+      "type": "ResolutionSelector",
+      "pos": [
+        1190,
+        0
+      ],
+      "size": [
+        300,
+        240
+      ],
+      "flags": {},
+      "order": 17,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "aspect_ratio",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "aspect_ratio"
+          }
+        },
+        {
+          "name": "megapixels",
+          "type": "FLOAT",
+          "link": 14,
+          "widget": {
+            "name": "megapixels"
+          }
+        },
+        {
+          "name": "multiple",
+          "type": "INT",
+          "link": null,
+          "widget": {
+            "name": "multiple"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "width",
+          "type": "INT",
+          "links": [
+            28
+          ]
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "links": [
+            29
+          ]
+        }
+      ],
+      "widgets_values": [
+        "16:9 (Widescreen)",
+        4.0,
+        32
+      ],
+      "title": "ASPECT RATIO"
+    },
+    {
+      "properties": {
+        "Node name for S&R": "MiniMaxH3ImageConditioning"
+      },
+      "id": 30,
+      "type": "MiniMaxH3ImageConditioning",
+      "pos": [
+        1560,
+        0
+      ],
+      "size": [
+        330,
+        400
+      ],
+      "flags": {},
+      "order": 18,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 51
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 16
+        },
+        {
+          "name": "images.image_1",
+          "type": "IMAGE",
+          "link": 17
+        },
+        {
+          "name": "images.image_2",
+          "type": "IMAGE",
+          "link": 18
+        },
+        {
+          "name": "images.image_3",
+          "type": "IMAGE",
+          "link": 19
+        },
+        {
+          "name": "images.image_4",
+          "type": "IMAGE",
+          "link": 20
+        },
+        {
+          "name": "images.image_5",
+          "type": "IMAGE",
+          "link": 21
+        },
+        {
+          "name": "images.image_6",
+          "type": "IMAGE",
+          "link": 22
+        },
+        {
+          "name": "images.image_7",
+          "type": "IMAGE",
+          "link": 23
+        },
+        {
+          "name": "images.image_8",
+          "type": "IMAGE",
+          "link": 24
+        },
+        {
+          "name": "images.image_9",
+          "type": "IMAGE",
+          "link": 25
+        },
+        {
+          "name": "images.image_10",
+          "type": "IMAGE",
+          "link": 26
+        },
+        {
+          "name": "prompt",
+          "type": "STRING",
+          "link": 27,
+          "widget": {
+            "name": "prompt"
+          }
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "link": 28,
+          "widget": {
+            "name": "width"
+          }
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "link": 29,
+          "widget": {
+            "name": "height"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "links": [
+            30,
+            34
+          ]
+        },
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            41
+          ]
+        }
+      ],
+      "widgets_values": [
+        "",
+        0,
+        0
+      ]
+    },
+    {
+      "properties": {
+        "Node name for S&R": "ConditioningZeroOut"
+      },
+      "id": 31,
+      "type": "ConditioningZeroOut",
+      "pos": [
+        1940,
+        0
+      ],
+      "size": [
+        300,
+        50
+      ],
+      "flags": {},
+      "order": 19,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "conditioning",
+          "type": "CONDITIONING",
+          "link": 30
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            35
+          ]
+        }
+      ]
+    },
+    {
+      "properties": {
+        "Node name for S&R": "VAEDecodeTiled"
+      },
+      "id": 33,
+      "type": "VAEDecodeTiled",
+      "pos": [
+        2290,
+        0
+      ],
+      "size": [
+        260,
+        150
+      ],
+      "flags": {},
+      "order": 20,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 42
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 31
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            32
+          ]
+        }
+      ],
+      "widgets_values": [
+        768,
+        64,
+        64,
+        8
+      ],
+      "title": "VAE Decode (Tiled - 12GB/T4)"
+    },
+    {
+      "properties": {
+        "Node name for S&R": "SaveImage"
+      },
+      "id": 34,
+      "type": "SaveImage",
+      "pos": [
+        2290,
+        100
+      ],
+      "size": [
+        560,
+        520
+      ],
+      "flags": {},
+      "order": 21,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 32
+        }
+      ],
+      "outputs": [],
+      "widgets_values": [
+        "h3_image/minimax_h3_image_12gb_t4"
+      ]
+    },
+    {
+      "properties": {
+        "Node name for S&R": "RandomNoise"
+      },
+      "id": 35,
+      "type": "RandomNoise",
+      "pos": [
+        1940,
+        90
+      ],
+      "size": [
+        300,
+        82
+      ],
+      "flags": {},
+      "order": 22,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "noise_seed",
+          "type": "INT",
+          "link": null,
+          "widget": {
+            "name": "noise_seed"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "NOISE",
+          "type": "NOISE",
+          "links": [
+            37
+          ]
+        }
+      ],
+      "widgets_values": [
+        42,
+        "randomize"
+      ],
+      "title": "Seed"
+    },
+    {
+      "properties": {
+        "Node name for S&R": "CFGGuider"
+      },
+      "id": 36,
+      "type": "CFGGuider",
+      "pos": [
+        1940,
+        200
+      ],
+      "size": [
+        300,
+        100
+      ],
+      "flags": {},
+      "order": 23,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 49
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 34
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 35
+        },
+        {
+          "name": "cfg",
+          "type": "FLOAT",
+          "link": null,
+          "widget": {
+            "name": "cfg"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "GUIDER",
+          "type": "GUIDER",
+          "links": [
+            38
+          ]
+        }
+      ],
+      "widgets_values": [
+        1.0
+      ]
+    },
+    {
+      "properties": {
+        "Node name for S&R": "BasicScheduler"
+      },
+      "id": 37,
+      "type": "BasicScheduler",
+      "pos": [
+        1940,
+        330
+      ],
+      "size": [
+        300,
+        110
+      ],
+      "flags": {},
+      "order": 24,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 50
+        },
+        {
+          "name": "scheduler",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "scheduler"
+          }
+        },
+        {
+          "name": "steps",
+          "type": "INT",
+          "link": null,
+          "widget": {
+            "name": "steps"
+          }
+        },
+        {
+          "name": "denoise",
+          "type": "FLOAT",
+          "link": null,
+          "widget": {
+            "name": "denoise"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "SIGMAS",
+          "type": "SIGMAS",
+          "links": [
+            40
+          ]
+        }
+      ],
+      "widgets_values": [
+        "simple",
+        6,
+        1.0
+      ]
+    },
+    {
+      "properties": {
+        "Node name for S&R": "SamplerLCM"
+      },
+      "id": 38,
+      "type": "SamplerLCM",
+      "pos": [
+        1940,
+        470
+      ],
+      "size": [
+        300,
+        110
+      ],
+      "flags": {},
+      "order": 25,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "s_noise",
+          "type": "FLOAT",
+          "link": null,
+          "widget": {
+            "name": "s_noise"
+          }
+        },
+        {
+          "name": "s_noise_end",
+          "type": "FLOAT",
+          "link": null,
+          "widget": {
+            "name": "s_noise_end"
+          }
+        },
+        {
+          "name": "noise_clip_std",
+          "type": "FLOAT",
+          "link": null,
+          "widget": {
+            "name": "noise_clip_std"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "SAMPLER",
+          "type": "SAMPLER",
+          "links": [
+            39
+          ]
+        }
+      ],
+      "widgets_values": [
+        1.5,
+        1.0,
+        0.0
+      ],
+      "title": "SamplerLCM (real skin)"
+    },
+    {
+      "properties": {
+        "Node name for S&R": "SamplerCustomAdvanced"
+      },
+      "id": 39,
+      "type": "SamplerCustomAdvanced",
+      "pos": [
+        1560,
+        440
+      ],
+      "size": [
+        330,
+        130
+      ],
+      "flags": {},
+      "order": 26,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "noise",
+          "type": "NOISE",
+          "link": 37
+        },
+        {
+          "name": "guider",
+          "type": "GUIDER",
+          "link": 38
+        },
+        {
+          "name": "sampler",
+          "type": "SAMPLER",
+          "link": 39
+        },
+        {
+          "name": "sigmas",
+          "type": "SIGMAS",
+          "link": 40
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 41
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "type": "LATENT",
+          "links": [
+            42
+          ]
+        },
+        {
+          "name": "denoised_output",
+          "type": "LATENT",
+          "links": []
+        }
+      ]
+    },
+    {
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "id": 41,
+      "type": "LoadImage",
+      "pos": [
+        840,
+        790
+      ],
+      "size": [
+        270,
+        360
+      ],
+      "flags": {},
+      "order": 27,
+      "mode": 4,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            17
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": []
+        }
+      ],
+      "widgets_values": [
+        "01_Elena.png",
+        "image"
+      ],
+      "title": "Picture 1 (the one to edit)"
+    },
+    {
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "id": 42,
+      "type": "LoadImage",
+      "pos": [
+        1130,
+        790
+      ],
+      "size": [
+        270,
+        360
+      ],
+      "flags": {},
+      "order": 28,
+      "mode": 4,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            18
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": []
+        }
+      ],
+      "widgets_values": [
+        "01_Elena.png",
+        "image"
+      ],
+      "title": "Picture 2"
+    },
+    {
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "id": 43,
+      "type": "LoadImage",
+      "pos": [
+        1420,
+        790
+      ],
+      "size": [
+        270,
+        360
+      ],
+      "flags": {},
+      "order": 29,
+      "mode": 4,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            19
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": []
+        }
+      ],
+      "widgets_values": [
+        "01_Elena.png",
+        "image"
+      ],
+      "title": "Picture 3"
+    },
+    {
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "id": 44,
+      "type": "LoadImage",
+      "pos": [
+        1710,
+        790
+      ],
+      "size": [
+        270,
+        360
+      ],
+      "flags": {},
+      "order": 30,
+      "mode": 4,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            20
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": []
+        }
+      ],
+      "widgets_values": [
+        "01_Elena.png",
+        "image"
+      ],
+      "title": "Picture 4"
+    },
+    {
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "id": 45,
+      "type": "LoadImage",
+      "pos": [
+        2000,
+        790
+      ],
+      "size": [
+        270,
+        360
+      ],
+      "flags": {},
+      "order": 31,
+      "mode": 4,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            21
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": []
+        }
+      ],
+      "widgets_values": [
+        "01_Elena.png",
+        "image"
+      ],
+      "title": "Picture 5"
+    },
+    {
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "id": 46,
+      "type": "LoadImage",
+      "pos": [
+        840,
+        1210
+      ],
+      "size": [
+        270,
+        360
+      ],
+      "flags": {},
+      "order": 32,
+      "mode": 4,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            22
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": []
+        }
+      ],
+      "widgets_values": [
+        "01_Elena.png",
+        "image"
+      ],
+      "title": "Picture 6"
+    },
+    {
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "id": 47,
+      "type": "LoadImage",
+      "pos": [
+        1130,
+        1210
+      ],
+      "size": [
+        270,
+        360
+      ],
+      "flags": {},
+      "order": 33,
+      "mode": 4,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            23
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": []
+        }
+      ],
+      "widgets_values": [
+        "01_Elena.png",
+        "image"
+      ],
+      "title": "Picture 7"
+    },
+    {
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "id": 48,
+      "type": "LoadImage",
+      "pos": [
+        1420,
+        1210
+      ],
+      "size": [
+        270,
+        360
+      ],
+      "flags": {},
+      "order": 34,
+      "mode": 4,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            24
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": []
+        }
+      ],
+      "widgets_values": [
+        "01_Elena.png",
+        "image"
+      ],
+      "title": "Picture 8"
+    },
+    {
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "id": 49,
+      "type": "LoadImage",
+      "pos": [
+        1710,
+        1210
+      ],
+      "size": [
+        270,
+        360
+      ],
+      "flags": {},
+      "order": 35,
+      "mode": 4,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            25
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": []
+        }
+      ],
+      "widgets_values": [
+        "01_Elena.png",
+        "image"
+      ],
+      "title": "Picture 9"
+    },
+    {
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "id": 50,
+      "type": "LoadImage",
+      "pos": [
+        2000,
+        1210
+      ],
+      "size": [
+        270,
+        360
+      ],
+      "flags": {},
+      "order": 36,
+      "mode": 4,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            26
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": []
+        }
+      ],
+      "widgets_values": [
+        "01_Elena.png",
+        "image"
+      ],
+      "title": "Picture 10"
+    },
+    {
+      "properties": {
+        "Node name for S&R": "MarkdownNote"
+      },
+      "id": 60,
+      "type": "MarkdownNote",
+      "pos": [
+        -570,
+        0
+      ],
+      "size": [
+        520,
+        1100
+      ],
+      "flags": {},
+      "order": 37,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "widgets_values": [
+        "## MiniMax H3 Image - 12 GB VRAM / Colab T4 (GGUF) version\n\nOptimized for **12 GB VRAM** and **Colab Free Tier T4 (16 GB VRAM / 12 GB System RAM)** using GGUF quantizations (`MiniMax-H3-Image-AD-Q4_K.gguf` + `Qwen3-VL-32B-Instruct-MiniMax-H3-L0-49-UD-Q2_K_XL.gguf` + BF16 `mmproj`) and tiled VAE decoding.\n\n**1. Prompt** - write it **long**, like a real photo: who (age, hair, skin, outfit), where, what is around them, the light and its direction, and the camera, e.g. *\"Shot on the iPhone 16 Pro front camera, visible skin texture and pores, natural phone HDR, no retouching, ordinary Instagram photo, not cinematic, not studio.\"* Short prompts give a glossy doll face. Keep *Enhance prompt* off when using reference pictures or running on 12 GB system RAM.\n\n**2. Size** - pick the ASPECT RATIO. *16 MP* defaults to **off (4 MP)** for fast T4 generation without memory swapping. People: use 3:4 (or 4:3).\n\n| Ratio | 4 MP (T4 Recommended) | 16 MP (12GB+ Desktop) |\n|---|---|---|\n| 1:1 | 2048x2048 | 4096x4096 |\n| 3:4 | 1760x2368 | 3552x4736 |\n| 4:3 | 2368x1760 | 4736x3552 |\n| 2:3 | 1664x2496 | 3360x5024 |\n| 3:2 | 2496x1664 | 5024x3360 |\n| 9:16 | 1536x2720 | 3072x5472 |\n| 16:9 | 2720x1536 | 5472x3072 |\n| 21:9 | 3136x1344 | 6272x2688 |\n\n**3. Reference pictures (Face Reference)** - ten slots, all bypassed. Select Slot 1, press **Ctrl+B** to switch it on, and load your reference face image as `<Picture 1>` in the prompt. Keep the VAE connected to the conditioning node and ensure the BF16 `mmproj` file is present in `models/text_encoders/` so face identity is preserved.\n\n**4. Sampler** - SamplerCustomAdvanced with **SamplerLCM**, BasicScheduler **simple, 6 steps**, denoise 1.0, CFGGuider **cfg 1.0** (no negative prompt). Do not raise the steps: the model is distilled for 6.\n\n**5. Tiled Decode** - uses **VAEDecodeTiled** (`tile_size: 768`, `overlap: 64`) to prevent VRAM spikes on 12 GB / T4 GPUs. Lower `tile_size` to `512` if you ever hit OOM.\n\n**6. LoRAs (MiniMax H3 Image & Video LoRAs)** - 3 LoRA slots are chained between the GGUF loaders and conditioning/samplers. They are bypassed by default (`mode: 4`).\n- Select your LoRA in the dropdown for Slot 1, 2, or 3.\n- Press **Ctrl+B** on the node to un-bypass (activate) it.\n- Adjust `strength_model` (typically 0.6 to 1.0).\n- Standard `.safetensors` MiniMax H3 image & video LoRAs work directly on the GGUF model.\n"
+      ],
+      "title": "How to use (12 GB VRAM / T4 GGUF)"
+    },
+    {
+      "id": 61,
+      "type": "LoraLoader",
+      "pos": [
+        460,
+        0
+      ],
+      "size": [
+        320,
+        140
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 4,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 43
+        },
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 44
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            45
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            46
+          ],
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoraLoader"
+      },
+      "widgets_values": [
+        "None",
+        1.0,
+        1.0
+      ],
+      "title": "LoRA 1 (MiniMax H3)"
+    },
+    {
+      "id": 62,
+      "type": "LoraLoader",
+      "pos": [
+        460,
+        170
+      ],
+      "size": [
+        320,
+        140
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 4,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 45
+        },
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 46
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            47
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            48
+          ],
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoraLoader"
+      },
+      "widgets_values": [
+        "None",
+        1.0,
+        1.0
+      ],
+      "title": "LoRA 2 (MiniMax H3)"
+    },
+    {
+      "id": 63,
+      "type": "LoraLoader",
+      "pos": [
+        460,
+        340
+      ],
+      "size": [
+        320,
+        140
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 4,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 47
+        },
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 48
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            49,
+            50
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            51
+          ],
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoraLoader"
+      },
+      "widgets_values": [
+        "None",
+        1.0,
+        1.0
+      ],
+      "title": "LoRA 3 (MiniMax H3)"
+    }
+  ],
+  "links": [
+    [
+      1,
+      14,
+      0,
+      15,
+      0,
+      "STRING"
+    ],
+    [
+      2,
+      10,
+      0,
+      15,
+      2,
+      "STRING"
+    ],
+    [
+      3,
+      12,
+      0,
+      16,
+      0,
+      "CLIP"
+    ],
+    [
+      4,
+      13,
+      0,
+      16,
+      1,
+      "STRING"
+    ],
+    [
+      5,
+      15,
+      0,
+      16,
+      2,
+      "STRING"
+    ],
+    [
+      6,
+      16,
+      0,
+      17,
+      0,
+      "STRING"
+    ],
+    [
+      7,
+      10,
+      0,
+      18,
+      0,
+      "STRING"
+    ],
+    [
+      8,
+      17,
+      0,
+      18,
+      1,
+      "STRING"
+    ],
+    [
+      9,
+      11,
+      0,
+      18,
+      2,
+      "BOOLEAN"
+    ],
+    [
+      10,
+      18,
+      0,
+      19,
+      0,
+      "STRING"
+    ],
+    [
+      11,
+      21,
+      0,
+      23,
+      0,
+      "FLOAT"
+    ],
+    [
+      12,
+      22,
+      0,
+      23,
+      1,
+      "FLOAT"
+    ],
+    [
+      13,
+      20,
+      0,
+      23,
+      2,
+      "BOOLEAN"
+    ],
+    [
+      14,
+      23,
+      0,
+      24,
+      1,
+      "FLOAT"
+    ],
+    [
+      16,
+      3,
+      0,
+      30,
+      1,
+      "VAE"
+    ],
+    [
+      17,
+      41,
+      0,
+      30,
+      2,
+      "IMAGE"
+    ],
+    [
+      18,
+      42,
+      0,
+      30,
+      3,
+      "IMAGE"
+    ],
+    [
+      19,
+      43,
+      0,
+      30,
+      4,
+      "IMAGE"
+    ],
+    [
+      20,
+      44,
+      0,
+      30,
+      5,
+      "IMAGE"
+    ],
+    [
+      21,
+      45,
+      0,
+      30,
+      6,
+      "IMAGE"
+    ],
+    [
+      22,
+      46,
+      0,
+      30,
+      7,
+      "IMAGE"
+    ],
+    [
+      23,
+      47,
+      0,
+      30,
+      8,
+      "IMAGE"
+    ],
+    [
+      24,
+      48,
+      0,
+      30,
+      9,
+      "IMAGE"
+    ],
+    [
+      25,
+      49,
+      0,
+      30,
+      10,
+      "IMAGE"
+    ],
+    [
+      26,
+      50,
+      0,
+      30,
+      11,
+      "IMAGE"
+    ],
+    [
+      27,
+      18,
+      0,
+      30,
+      12,
+      "STRING"
+    ],
+    [
+      28,
+      24,
+      0,
+      30,
+      13,
+      "INT"
+    ],
+    [
+      29,
+      24,
+      1,
+      30,
+      14,
+      "INT"
+    ],
+    [
+      30,
+      30,
+      0,
+      31,
+      0,
+      "CONDITIONING"
+    ],
+    [
+      31,
+      3,
+      0,
+      33,
+      1,
+      "VAE"
+    ],
+    [
+      32,
+      33,
+      0,
+      34,
+      0,
+      "IMAGE"
+    ],
+    [
+      34,
+      30,
+      0,
+      36,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      35,
+      31,
+      0,
+      36,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      37,
+      35,
+      0,
+      39,
+      0,
+      "NOISE"
+    ],
+    [
+      38,
+      36,
+      0,
+      39,
+      1,
+      "GUIDER"
+    ],
+    [
+      39,
+      38,
+      0,
+      39,
+      2,
+      "SAMPLER"
+    ],
+    [
+      40,
+      37,
+      0,
+      39,
+      3,
+      "SIGMAS"
+    ],
+    [
+      41,
+      30,
+      1,
+      39,
+      4,
+      "LATENT"
+    ],
+    [
+      42,
+      39,
+      0,
+      33,
+      0,
+      "LATENT"
+    ],
+    [
+      43,
+      1,
+      0,
+      61,
+      0,
+      "MODEL"
+    ],
+    [
+      44,
+      2,
+      0,
+      61,
+      1,
+      "CLIP"
+    ],
+    [
+      45,
+      61,
+      0,
+      62,
+      0,
+      "MODEL"
+    ],
+    [
+      46,
+      61,
+      1,
+      62,
+      1,
+      "CLIP"
+    ],
+    [
+      47,
+      62,
+      0,
+      63,
+      0,
+      "MODEL"
+    ],
+    [
+      48,
+      62,
+      1,
+      63,
+      1,
+      "CLIP"
+    ],
+    [
+      49,
+      63,
+      0,
+      36,
+      0,
+      "MODEL"
+    ],
+    [
+      50,
+      63,
+      0,
+      37,
+      0,
+      "MODEL"
+    ],
+    [
+      51,
+      63,
+      1,
+      30,
+      0,
+      "CLIP"
+    ]
+  ],
+  "groups": [
+    {
+      "id": 1,
+      "title": "Models",
+      "bounding": [
+        -20,
+        -80,
+        460,
+        480
+      ],
+      "color": "#3f789e",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "id": 2,
+      "title": "Prompt",
+      "bounding": [
+        -20,
+        440,
+        810,
+        1240
+      ],
+      "color": "#a1309b",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "id": 3,
+      "title": "Size: aspect ratio + 4 MP / 16 MP (12 GB / T4)",
+      "bounding": [
+        820,
+        -80,
+        690,
+        520
+      ],
+      "color": "#88A",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "id": 4,
+      "title": "Reference pictures (Ctrl+B to switch a slot on)",
+      "bounding": [
+        820,
+        710,
+        1470,
+        870
+      ],
+      "color": "#8A8",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "id": 5,
+      "title": "Render",
+      "bounding": [
+        1540,
+        -80,
+        1330,
+        750
+      ],
+      "color": "#b58b2a",
+      "font_size": 24,
+      "flags": {}
+    }
+  ],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.5,
+      "offset": [
+        600,
+        150
+      ]
+    }
+  },
+  "version": 0.4
+}
